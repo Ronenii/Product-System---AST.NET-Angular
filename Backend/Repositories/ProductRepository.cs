@@ -5,9 +5,9 @@ using Backend.Models.Filter;
 
 namespace Backend.Repositories;
 
-public class ProductRepository(DataContext i_Context) : IProductRepository
+public class ProductRepository(DataContext context) : IProductRepository
 {
-    private readonly DataContext _context = i_Context;
+    private readonly DataContext _context = context;
 
     public ICollection<Product> GetProducts()
     {
