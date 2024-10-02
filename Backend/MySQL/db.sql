@@ -5,18 +5,18 @@
     is_admin BOOLEAN NOT NULL 
 );
 
+CREATE TABLE Categories(
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE
+);
+
 CREATE TABLE Products(
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
     name VARCHAR(255) NOT NULL UNIQUE,
     description TEXT,
-    price DECIMAL NOT NULL,
+    price DECIMAL(10,2) NOT NULL,
     stock INT NOT NULL,
-    category_id INT,
+    category_id INT NOT NULL,
     
     FOREIGN KEY (category_id) REFERENCES Categories(id)
-);
-
-CREATE TABLE Categories(
-    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    name VARCHAR(255) NOT NULL UNIQUE 
 );
