@@ -7,8 +7,8 @@ namespace Backend.Repositories.Generic;
 public class GenericRepository<T> : IGenericRepository<T>
     where T : class
 {
-    protected DataContext _context;
-    protected DbSet<T?> _dbSet;
+    protected readonly DataContext _context;
+    protected readonly DbSet<T?> _dbSet;
     protected readonly ILogger _logger;
 
     protected GenericRepository(DataContext context, ILogger<GenericRepository<T>> logger)

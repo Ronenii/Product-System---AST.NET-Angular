@@ -1,4 +1,6 @@
-﻿namespace Backend.Models;
+﻿using Backend.DTO.Category;
+
+namespace Backend.Models;
 
 public class Category
 {
@@ -6,4 +8,9 @@ public class Category
     public string Name { get; set; }
 
     public ICollection<Product> Products { get; set; } = new List<Product>();
+
+    public CategoryDTO ToCategoryDTO()
+    {
+        return new CategoryDTO(Id, Name);
+    }
 }

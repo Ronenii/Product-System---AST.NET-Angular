@@ -1,4 +1,6 @@
-﻿namespace Backend.Models;
+﻿using Backend.DTO.Product;
+
+namespace Backend.Models;
 
 public class Product
 {
@@ -10,4 +12,9 @@ public class Product
     public int CategoryId { get; set; }
     
     public Category Category { get; set; }
+
+    public ProductDTO ToProductDTO()
+    {
+        return new ProductDTO(Id, Name, Description, Price, Stock, CategoryId);
+    }
 }
