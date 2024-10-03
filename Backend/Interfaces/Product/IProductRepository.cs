@@ -5,5 +5,5 @@ namespace Backend.Interfaces;
 
 public interface IProductRepository
 {
-    ICollection<Product> GetFilteredProducts(ProductFilter filter);
+    Task<ICollection<Product>> GetFilteredProducts(ProductFilter filter);
 }

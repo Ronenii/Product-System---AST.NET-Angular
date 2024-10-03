@@ -3,6 +3,7 @@ using Backend.Interfaces;
 using Backend.Models;
 using Backend.Models.Filter;
 using Backend.Repositories.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Repositories;
 
@@ -13,7 +14,7 @@ public class ProductRepository: GenericRepository<Product>, IProductRepository
     {
     }
 
-    public ICollection<Product> GetFilteredProducts(ProductFilter filter)
+    public async Task<ICollection<Product>> GetFilteredProducts(ProductFilter filter)
     {
         IQueryable<Product> query = _context.Products.AsQueryable();
 
@@ -42,6 +43,6 @@ public class ProductRepository: GenericRepository<Product>, IProductRepository
             query = query.Where(p => p.Category.Name == filter.Category);
         }
         
-        return query.ToList();
+        return await query.ToListAsync();
     }
 }
