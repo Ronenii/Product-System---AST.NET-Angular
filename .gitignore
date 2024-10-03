@@ -1,0 +1,81 @@
+﻿# Build artifacts
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+*.db
+*.cache
+*.log
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.sln.docstates
+*.vs/
+.vscode/
+.idea/
+
+# Rider / ReSharper specific files
+.idea/
+.idea_modules/
+.idea_workspace/
+.idea/configs/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+
+# Visual Studio Code settings
+.vscode/*
+
+# Rider and other JetBrains IDEs settings
+.idea/
+*.sln.iml
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# NPM dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Mac/Linux specific files
+*.swp
+._*
+.TemporaryItems/
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Desktop.ini
+
+# Dotnet publish
+publish/
+publishOutput/
+
+# Entity Framework
+*.mdf
+*.ldf
+
+# Dependencies and Libraries
+lib/
+packages/
+.nuget/
+
+# Build results
+project.lock.json
+project.fragment.lock.json

@@ -8,65 +8,71 @@ public class GenericRepository<T> : IGenericRepository<T>
     where T : class
 {
     protected DataContext _context;
-    protected DbSet<T> dbSet;
+    protected DbSet<T?> _dbSet;
     protected readonly ILogger _logger;
 
-    public GenericRepository(DataContext context, ILogger<GenericRepository<T>> logger)
+    protected GenericRepository(DataContext context, ILogger<GenericRepository<T>> logger)
     {
         _context = context;
         _logger = logger;
-        this.dbSet = context.Set<T>();
+        this._dbSet = context.Set<T>();
     }
 
-    public ICollection<T> All()
+    public async Task<ICollection<T>> All()
     {
-        return dbSet.ToList();
+        return await _dbSet.ToListAsync();
     }
 
-    public T GetById(int id)
+    public async Task<T?> GetById(int id)
     {
-        return dbSet.Find(id);
+        return await _dbSet.FindAsync(id);
     }
 
-    public bool Add(T entity)
-    {
-        bool isAdded = (dbSet.Remove(entity).State == EntityState.Deleted);
-
-        if(isAdded)
-        {
-            _logger.LogInformation($"Added Entity: {entity}");
-        }
-        else
-        {
-            _logger.LogError("Error adding entity");
-        }
-
-        return isAdded;
-    }
-
-    public bool Delete(int id)
-    {
-        T entity = dbSet.Find(id);
-        
-        if(entity == null)
-        {
-            _logger.LogWarning($"Entity with id {id} was not found.");
-            return false;
-        }
-        
-        dbSet.Remove(entity);
-        _logger.LogInformation($"Deleted Entity: {entity}");
-        return true;
-    }
-
-    public bool Update(T entity)
+    public async Task<bool> Add(T? entity)
     {
         try
         {
-            dbSet.Attach(entity);
+            await _dbSet.AddAsync(entity);
+            _logger.LogInformation($"Added Entity: {entity}");
+            return await SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error adding entity");
+            return false;
+        }
+    }
+
+    public async Task<bool> Delete(int id)
+    {
+        try
+        {
+            T? entity = await _dbSet.FindAsync(id);
+            if (entity == null)
+            {
+                _logger.LogWarning($"Entity with id {id} was not found.");
+                return false;
+            }
+
+            _dbSet.Remove(entity);
+            _logger.LogInformation($"Deleted Entity: {entity}");
+            return await SaveChanges();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error deleting entity");
+            return false;
+        }
+    }
+
+    public async Task<bool> Update(T? entity)
+    {
+        try
+        {
+            _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
             _logger.LogInformation($"Updated Entity: {entity}");
-            return true;
+            return await SaveChanges();
         }
         catch (Exception ex)
         {
@@ -75,8 +81,8 @@ public class GenericRepository<T> : IGenericRepository<T>
         }
     }
 
-    public bool SaveChanges()
+    public async Task<bool> SaveChanges()
     {
-        return _context.SaveChanges() > 0;
+        return await _context.SaveChangesAsync() > 0;
     }
 }
