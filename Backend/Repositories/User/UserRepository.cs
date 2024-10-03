@@ -1,25 +1,16 @@
 ﻿using Backend.Data;
 using Backend.Interfaces;
 using Backend.Models;
+using Backend.Repositories.Generic;
 
 namespace Backend.Repositories;
 
-public class UserRepository(DataContext context): IUserRepository
+public class UserRepository: GenericRepository<User>, IUserRepository
 {
-    private readonly DataContext _context = context;
-
-    public ICollection<User> GetUsers()
+    public UserRepository(DataContext context, ILogger<GenericRepository<User>> logger)
+        : base(context, logger)
     {
-        return _context.Users.ToList();
     }
-
-    public User GetUserById(int id)
-    {
-        return _context.Users.Find(id);
-    }
-
-    public void AddUser(User user)
-    {
-        _context.Users.Add(user);
-    }
+    
+    
 }

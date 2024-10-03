@@ -2,21 +2,15 @@
 using Backend.Interfaces;
 using Backend.Models;
 using Backend.Models.Filter;
+using Backend.Repositories.Generic;
 
 namespace Backend.Repositories;
 
-public class ProductRepository(DataContext context) : IProductRepository
+public class ProductRepository: GenericRepository<Product>, IProductRepository
 {
-    private readonly DataContext _context = context;
-
-    public ICollection<Product> GetProducts()
+    public ProductRepository(DataContext context, ILogger<GenericRepository<Product>> logger)
+        : base(context, logger)
     {
-        return _context.Products.ToList();
-    }
-
-    public Product GetProductById(int id)
-    {
-        return _context.Products.Find(id);
     }
 
     public ICollection<Product> GetFilteredProducts(ProductFilter filter)
@@ -49,29 +43,5 @@ public class ProductRepository(DataContext context) : IProductRepository
         }
         
         return query.ToList();
-    }
-
-    public void AddProduct(Product product)
-    {
-        _context.Products.Add(product);
-    }
-
-    public void UpdateProduct(Product product)
-    {
-        _context.Products.Update(product);
-    }
-
-    public void DeleteProduct(int id)
-    {
-        Product productToDelete = _context.Products.Find(id);
-        if(productToDelete != null)
-        {
-            _context.Products.Remove(productToDelete);
-        }
-    }
-
-    public bool SaveChanges()
-    {
-        return _context.SaveChanges() >= 0;
     }
 }

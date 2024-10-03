@@ -1,25 +1,14 @@
 ﻿using Backend.Data;
 using Backend.Interfaces;
 using Backend.Models;
+using Backend.Repositories.Generic;
 
 namespace Backend.Repositories;
 
-public class CategoryRepository(DataContext context): ICategoryRepository
+public class CategoryRepository: GenericRepository<Category>, ICategoryRepository
 {
-    public readonly DataContext _context = context;
-
-    public ICollection<Category> GetCategories()
+    public CategoryRepository(DataContext context, ILogger<GenericRepository<Category>> logger)
+        : base(context, logger)
     {
-        return _context.Categories.ToList();
-    }
-
-    public Category GetCategoryById(int id)
-    {
-        return _context.Categories.Find(id);
-    }
-
-    public void AddCategory(Category category)
-    {
-        _context.Categories.Add(category);
     }
 }
