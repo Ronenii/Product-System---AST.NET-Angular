@@ -10,7 +10,7 @@ public class User
     public string PasswordHash  { get; set; }
     public bool IsAdmin { get; set; }
 
-    public UserDTO ToUserDTO()
+    public UserDTO ToDTO()
     {
         return new UserDTO(Id, Username, Email, IsAdmin);
     }

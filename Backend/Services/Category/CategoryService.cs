@@ -14,7 +14,7 @@ public class CategoryService
     {
         ICollection<Models.Category> categories = await _categoryRepository.All();
 
-        List<CategoryDTO> categoryDTOs = categories.Select(c => c.ToCategoryDTO()).ToList();
+        List<CategoryDTO> categoryDTOs = categories.Select(c => c.ToDTO()).ToList();
 
         return categoryDTOs;
     }
@@ -23,7 +23,7 @@ public class CategoryService
     {
         Models.Category category = await _categoryRepository.GetById(id);
         
-        return category.ToCategoryDTO();
+        return category.ToDTO();
     }
 
     public async Task<CategoryDTO> CreateCategory(CreateCategoryDTO createCategoryDto)
@@ -38,6 +38,6 @@ public class CategoryService
             throw new Exception("Failed to create category");
         }
 
-        return category.ToCategoryDTO();
+        return category.ToDTO();
     }
 }

@@ -13,7 +13,7 @@ public class Product
     
     public Category Category { get; set; }
 
-    public ProductDTO ToProductDTO()
+    public ProductDTO ToDTO()
     {
         return new ProductDTO(Id, Name, Description, Price, Stock, CategoryId);
     }

@@ -9,7 +9,7 @@ public class Category
 
     public ICollection<Product> Products { get; set; } = new List<Product>();
 
-    public CategoryDTO ToCategoryDTO()
+    public CategoryDTO ToDTO()
     {
         return new CategoryDTO(Id, Name);
     }
