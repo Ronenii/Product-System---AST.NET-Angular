@@ -9,19 +9,20 @@ namespace Backend.Services.Category.Validator;
 
 public class CategoryValidator : GenericValidator<CreateCategoryDTO>
 {
-    public CategoryValidator(IGenericRepository<CreateCategoryDTO> repository)
-        : base(repository)
+    private readonly ICategoryRepository? r_CategoryRepository;
+    public CategoryValidator(ICategoryRepository categoryRepository)
     {
+        this.r_CategoryRepository = categoryRepository;
     }
 
-    public override void Validate(CreateCategoryDTO category)
+    public override async Task Validate(CreateCategoryDTO category)
     {
-        validateName(category.Name);
+        await validateName(category.Name);
     }
 
-    private void validateName(string name)
+    private async Task validateName(string name)
     {
-        if((_repository as ICategoryRepository).NameExists(name).Result)
+        if(await r_CategoryRepository.NameExists(name))
         {
             throw new ArgumentException("Category name already exists");
         }

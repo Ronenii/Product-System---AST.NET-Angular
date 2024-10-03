@@ -2,5 +2,5 @@
 
 public interface IValidator<T>
 {
-    void Validate(T value);
+    Task Validate(T value);
 }
