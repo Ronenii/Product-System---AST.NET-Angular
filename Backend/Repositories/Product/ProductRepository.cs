@@ -45,4 +45,9 @@ public class ProductRepository: GenericRepository<Product>, IProductRepository
         
         return await query.ToListAsync();
     }
+
+    public Task<bool> NameExists(string name)
+    {
+        return _context.Products.AnyAsync(p => p.Name == name);
+    }
 }

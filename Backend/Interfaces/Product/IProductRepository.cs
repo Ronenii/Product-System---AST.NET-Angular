@@ -6,4 +6,6 @@ namespace Backend.Interfaces;
 public interface IProductRepository
 {
     Task<ICollection<Product>> GetFilteredProducts(ProductFilter filter);
+
+    Task<bool> NameExists(string name);
 }
