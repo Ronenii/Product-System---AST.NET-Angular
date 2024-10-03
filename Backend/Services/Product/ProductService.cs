@@ -1,5 +1,4 @@
-﻿using Backend.DTO.Category;
-using Backend.DTO.Product;
+﻿using Backend.DTO.Product;
 using Backend.Interfaces;
 using Backend.Models.Filter;
 using Backend.Services.Product.Validator;
