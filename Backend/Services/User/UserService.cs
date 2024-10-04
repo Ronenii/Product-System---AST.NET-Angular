@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using Backend.DTO.User;
+using Backend.DTO.User.Login;
 using Backend.Interfaces;
 using Backend.Services.User.Validator;
 
@@ -41,7 +42,7 @@ public class UserService
                                {
                                    Username = createUserDTO.Username,
                                    PasswordHash = hashPassword(createUserDTO.Password),
-                                   IsAdmin = false
+                                   IsAdmin = createUserDTO.IsAdmin
                                };
         
         bool success = await _userRepository.Add(user);
@@ -64,5 +65,29 @@ public class UserService
 
             return Convert.ToBase64String(hashBytes);
         }
+    }
+
+    public async Task<Models.User> Authenticate(LoginDTO loginDTO)
+    {
+        Models.User user = await _userRepository.GetByUsername(loginDTO.Username);
+
+        if(user == null)
+        {
+            return null;
+        }
+
+        if(!verifyPassword(loginDTO.Password, user.PasswordHash))
+        {
+            return null;
+        }
+
+        return user;
+    }
+
+    private bool verifyPassword(string enteredPassword, string storedPasswordHash)
+    {
+        string enteredPasswordHash = hashPassword(enteredPassword);
+
+        return enteredPasswordHash == storedPasswordHash;
     }
 }

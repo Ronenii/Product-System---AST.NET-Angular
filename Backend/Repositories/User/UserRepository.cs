@@ -17,4 +17,9 @@ public class UserRepository: GenericRepository<User>, IUserRepository
     {
         return _context.Users.AnyAsync(u => u.Username == username);
     }
+
+    public Task<User> GetByUsername(string username)
+    {
+        return _context.Users.SingleOrDefaultAsync(u => u.Username == username);
+    }
 }

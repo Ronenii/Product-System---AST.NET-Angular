@@ -6,6 +6,7 @@ using Backend.Services.Category;
 using Backend.Services.Category.Validator;
 using Backend.Services.Product;
 using Backend.Services.Product.Validator;
+using Backend.Services.Token;
 using Backend.Services.User;
 using Backend.Services.User.Validator;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -30,6 +31,8 @@ builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<ProductValidator>();
 builder.Services.AddScoped<ProductService>();
+
+builder.Services.AddScoped<TokenService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -57,6 +60,8 @@ builder.Services.AddAuthentication(
                                                             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
                                                     };
         });
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
