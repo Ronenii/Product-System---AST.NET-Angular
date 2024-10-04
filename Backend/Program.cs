@@ -1,3 +1,4 @@
+using System.Text;
 using Backend.Data;
 using Backend.Interfaces;
 using Backend.Repositories;
@@ -7,7 +8,9 @@ using Backend.Services.Product;
 using Backend.Services.Product.Validator;
 using Backend.Services.User;
 using Backend.Services.User.Validator;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -31,10 +34,28 @@ builder.Services.AddScoped<ProductService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(
+    options => { options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)); });
+
+// Configure JWT Authentication
+builder.Services.AddAuthentication(
     options =>
         {
-            options.UseMySql(connectionString,
-                ServerVersion.AutoDetect(connectionString));
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        }).AddJwtBearer(
+    options =>
+        {
+            options.TokenValidationParameters = new TokenValidationParameters
+                                                    {
+                                                        ValidateIssuer = true,
+                                                        ValidateAudience = true,
+                                                        ValidateLifetime = true,
+                                                        ValidateIssuerSigningKey = true,
+                                                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                                                        ValidAudience = builder.Configuration["Jwt:Issuer"],
+                                                        IssuerSigningKey = new SymmetricSecurityKey(
+                                                            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+                                                    };
         });
 
 var app = builder.Build();
@@ -48,6 +69,7 @@ if(app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
