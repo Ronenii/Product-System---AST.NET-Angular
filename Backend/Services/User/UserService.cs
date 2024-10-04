@@ -32,14 +32,13 @@ public class UserService
     
         return user == null ? null : user.ToDTO();
     }
-
+    
     public async Task<UserDTO> CreateUser(CreateUserDTO createUserDTO)
     {
         await _userValidator.Validate(createUserDTO);
 
         Models.User user = new Models.User
                                {
-                                   Email = createUserDTO.Email,
                                    Username = createUserDTO.Username,
                                    PasswordHash = hashPassword(createUserDTO.Password),
                                    IsAdmin = false

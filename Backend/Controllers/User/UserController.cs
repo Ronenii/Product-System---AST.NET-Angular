@@ -39,11 +39,17 @@ public class UserController: Controller
 
     [HttpPost]
     [ProducesResponseType(201, Type = typeof(UserDTO))]
+    [ProducesResponseType(400)]
     public async Task<IActionResult> AddUser([FromBody] CreateUserDTO createUserDTO)
     {
-        UserDTO user = await _userService.CreateUser(createUserDTO);
-        
-        // Create the URI for the newly created user (e.g., /api/user/{id})
-        return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+        try
+        {
+            UserDTO user = await _userService.CreateUser(createUserDTO);
+            return CreatedAtAction(nameof(GetUserById), new { id = user.Id }, user);
+        }
+        catch(ArgumentException ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
 }

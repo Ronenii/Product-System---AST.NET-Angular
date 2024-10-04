@@ -11,11 +11,6 @@ public class User
     [Column("id")]
     public int Id { get; set; }
     
-    [Column("email")]
-    [Required]
-    [MaxLength(255)]
-    public string Email { get; set; }
-    
     [Column("username")]
     [Required]
     [MaxLength(255)]
@@ -32,6 +27,6 @@ public class User
 
     public UserDTO ToDTO()
     {
-        return new UserDTO(Id, Username, Email, IsAdmin);
+        return new UserDTO(Id, Username, IsAdmin);
     }
 }
