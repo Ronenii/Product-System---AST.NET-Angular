@@ -38,9 +38,9 @@ public class ProductRepository: GenericRepository<Product>, IProductRepository
             query = query.Where(p => p.Price <= filterDto.MaxPrice.Value);
         }
 
-        if (!string.IsNullOrEmpty(filterDto.Category))
+        if (filterDto.CategoryId.HasValue)
         {
-            query = query.Where(p => p.Category.Name == filterDto.Category);
+            query = query.Where(p => p.Category.Id == filterDto.CategoryId);
         }
         
         return await query.ToListAsync();

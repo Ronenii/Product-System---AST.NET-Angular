@@ -1,5 +1,6 @@
 ﻿using Backend.DTO.Category;
 using Backend.DTO.Product;
+using Backend.Models.Filter;
 using Backend.Services.Product;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,7 +26,7 @@ public class ProductController: Controller
     }
     
     [HttpGet("{id}")]
-    [ProducesResponseType(200, Type = typeof(IEnumerable<ProductDTO>))]
+    [ProducesResponseType(200, Type = typeof(ProductDTO))]
     [ProducesResponseType(404)]
     public async Task<IActionResult> GetProductById(int id)
     {
@@ -51,5 +52,14 @@ public class ProductController: Controller
         {
             return BadRequest(new { message = ex.Message });
         }
+    }
+    
+    [HttpPost("Filter")]
+    [ProducesResponseType(200, Type = typeof(IEnumerable<ProductDTO>))]
+    public async Task<IActionResult> GetFilteredProducts([FromBody] ProductFilterDTO productFilterDTO)
+    {
+        IEnumerable<ProductDTO> product = await _productService.GetFilteredProducts(productFilterDTO);
+
+        return Ok(product);
     }
 }
