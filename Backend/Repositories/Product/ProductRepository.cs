@@ -14,33 +14,33 @@ public class ProductRepository: GenericRepository<Product>, IProductRepository
     {
     }
 
-    public async Task<ICollection<Product>> GetFilteredProducts(ProductFilter filter)
+    public async Task<ICollection<Product>> GetFilteredProducts(ProductFilterDTO filterDto)
     {
         IQueryable<Product> query = _context.Products.AsQueryable();
 
-        if(filter.MinStock.HasValue)
+        if(filterDto.MinStock.HasValue)
         {
-            query = query.Where(p => p.Stock >= filter.MinStock.Value);
+            query = query.Where(p => p.Stock >= filterDto.MinStock.Value);
         }
 
-        if(filter.MaxStock.HasValue)
+        if(filterDto.MaxStock.HasValue)
         {
-            query = query.Where(p => p.Stock <= filter.MaxStock.Value);
+            query = query.Where(p => p.Stock <= filterDto.MaxStock.Value);
         }
         
-        if(filter.MinPrice.HasValue)
+        if(filterDto.MinPrice.HasValue)
         {
-            query = query.Where(p => p.Price >= filter.MinPrice.Value);
+            query = query.Where(p => p.Price >= filterDto.MinPrice.Value);
         }
 
-        if(filter.MaxPrice.HasValue)
+        if(filterDto.MaxPrice.HasValue)
         {
-            query = query.Where(p => p.Price <= filter.MaxPrice.Value);
+            query = query.Where(p => p.Price <= filterDto.MaxPrice.Value);
         }
 
-        if (!string.IsNullOrEmpty(filter.Category))
+        if (!string.IsNullOrEmpty(filterDto.Category))
         {
-            query = query.Where(p => p.Category.Name == filter.Category);
+            query = query.Where(p => p.Category.Name == filterDto.Category);
         }
         
         return await query.ToListAsync();

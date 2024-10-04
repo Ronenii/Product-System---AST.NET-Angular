@@ -6,7 +6,7 @@ namespace Backend.Interfaces;
 
 public interface IProductRepository: IGenericRepository<Product>
 {
-    Task<ICollection<Product>> GetFilteredProducts(ProductFilter filter);
+    Task<ICollection<Product>> GetFilteredProducts(ProductFilterDTO filterDto);
 
     Task<bool> NameExists(string name);
 }

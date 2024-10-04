@@ -20,9 +20,9 @@ public class ProductService
         return productDTOs;
     }
     
-    public async Task<ICollection<ProductDTO>> GetFilteredProducts(ProductFilter filter)
+    public async Task<ICollection<ProductDTO>> GetFilteredProducts(ProductFilterDTO i_FilterDto)
     {
-        ICollection<Models.Product> products = await _productRepository.GetFilteredProducts(filter);
+        ICollection<Models.Product> products = await _productRepository.GetFilteredProducts(i_FilterDto);
 
         List<ProductDTO> productDTOs = products.Select(p => p.ToDTO()).ToList();
 
