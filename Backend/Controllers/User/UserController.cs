@@ -16,11 +16,24 @@ public class UserController: Controller
         _userService = userService;
     }
 
-    [HttpGet]
+    [HttpGet("{id}")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<UserDTO>))]
+    [ProducesResponseType(404)]
     public async Task<IActionResult> GetAllUsers()
     {
         IEnumerable<UserDTO> users = await _userService.GetAllUsers();
         return Ok(users);
+    }
+    
+    [HttpGet]
+    [ProducesResponseType(200, Type = typeof(IEnumerable<UserDTO>))]
+    public async Task<IActionResult> GetUserById(int id)
+    {
+        UserDTO user = await _userService.GetUserById(id);
+        if(user == null)
+        {
+            return NotFound();
+        }
+        return Ok(user);
     }
 }

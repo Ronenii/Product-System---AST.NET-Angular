@@ -26,11 +26,11 @@ public class UserService
         return userDTOs;
     }
 
-    public async Task<UserDTO> GetUserById(int id)
+    public async Task<UserDTO?> GetUserById(int id)
     {
-        Models.User user = await _userRepository.GetById(id);
-        
-        return user.ToDTO();
+        Models.User? user = await _userRepository.GetById(id);
+    
+        return user == null ? null : user.ToDTO();
     }
 
     public async Task<UserDTO> CreateUser(CreateUserDTO createUserDTO)
@@ -41,7 +41,8 @@ public class UserService
                                {
                                    Email = createUserDTO.Email,
                                    Username = createUserDTO.Username,
-                                   PasswordHash = hashPassword(createUserDTO.Password)
+                                   PasswordHash = hashPassword(createUserDTO.Password),
+                                   IsAdmin = false
                                };
         
         bool success = await _userRepository.Add(user);
