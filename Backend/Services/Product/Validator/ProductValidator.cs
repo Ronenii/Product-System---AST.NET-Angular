@@ -7,21 +7,24 @@ namespace Backend.Services.Product.Validator;
 
 public class ProductValidator: IValidator<CreateProductDTO>
 {
-    private readonly IProductRepository? r_ProductRepository;
-    public ProductValidator(IProductRepository productRepository)
+    private readonly IProductRepository? _productRepository;
+    private readonly ICategoryRepository? _categoryRepository;
+    public ProductValidator(IProductRepository productRepository, ICategoryRepository categoryRepository)
     {
-        this.r_ProductRepository = productRepository;
+        _productRepository = productRepository;
+        _categoryRepository = categoryRepository;
     }
 
     public async Task Validate(CreateProductDTO product)
     {
         await validateName(product.Name);
         await validatePrice(product.Price);
+        await validateCategory(product.CategoryId);
     }
 
     private async Task validateName(string name)
     {
-        if(await r_ProductRepository.NameExists(name))
+        if(await _productRepository.NameExists(name))
         {
             throw new ArgumentException("Product name already exists");
         }
@@ -39,10 +42,19 @@ public class ProductValidator: IValidator<CreateProductDTO>
             throw new ArgumentException("Price cannot be negative");
         }
     }
-
+    
     private bool isProductNameRegexValid(string name)
     {
-        const string productNameRegex = @"^[a-zA-Z0-9]+$";
+        const string productNameRegex = @"^[a-zA-Z0-9!,.()\- ]+$";
         return Regex.IsMatch(name, productNameRegex);
+    }
+
+    private async Task validateCategory(int id)
+    {
+        Models.Category category = await _categoryRepository.GetById(id);
+        if(category == null)
+        {
+            throw new ArgumentException("Category does not exist");
+        }
     }
 }

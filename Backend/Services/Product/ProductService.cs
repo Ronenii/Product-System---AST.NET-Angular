@@ -1,6 +1,7 @@
 ﻿using Backend.DTO.Product;
 using Backend.Interfaces;
 using Backend.Models.Filter;
+using Backend.Services.Generic;
 using Backend.Services.Product.Validator;
 
 namespace Backend.Services.Product;
@@ -8,10 +9,12 @@ namespace Backend.Services.Product;
 public class ProductService
 {
     private readonly IProductRepository _productRepository;
+    private readonly ICategoryRepository _categoryRepository;
     private readonly ProductValidator _productValidator;
 
-    public ProductService(IProductRepository productRepository, ProductValidator productValidator)
+    public ProductService(IProductRepository productRepository, ICategoryRepository categoryRepository, ProductValidator productValidator)
     {
+        _categoryRepository = categoryRepository;
         _productRepository = productRepository;
         _productValidator = productValidator;
     }
