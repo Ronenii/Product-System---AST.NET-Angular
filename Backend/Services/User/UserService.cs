@@ -11,7 +11,12 @@ public class UserService
     private readonly IUserRepository _userRepository;
     private readonly UserValidator _userValidator;
 
-
+    public UserService(IUserRepository userRepository, UserValidator userValidator)
+    {
+        _userRepository = userRepository;
+        _userValidator = userValidator;
+    }
+    
     public async Task<ICollection<UserDTO>> GetAllUsers()
     {
         ICollection<Models.User> users = await _userRepository.All();
