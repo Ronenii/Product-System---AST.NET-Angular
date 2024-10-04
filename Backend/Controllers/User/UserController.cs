@@ -25,7 +25,7 @@ public class UserController: Controller
     }
     
     [HttpGet("{id}")]
-    [ProducesResponseType(200, Type = typeof(IEnumerable<UserDTO>))]
+    [ProducesResponseType(200, Type = typeof(UserDTO))]
     [ProducesResponseType(404)]
     public async Task<IActionResult> GetUserById(int id)
     {

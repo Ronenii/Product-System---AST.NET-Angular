@@ -9,6 +9,11 @@ public class CategoryService
     private readonly ICategoryRepository _categoryRepository;
     private readonly CategoryValidator _categoryValidator;
 
+    public CategoryService(ICategoryRepository categoryRepository, CategoryValidator categoryValidator)
+    {
+        _categoryRepository = categoryRepository;
+        _categoryValidator = categoryValidator;
+    }
 
     public async Task<ICollection<CategoryDTO>> GetAllCategories()
     {

@@ -10,6 +10,11 @@ public class ProductService
     private readonly IProductRepository _productRepository;
     private readonly ProductValidator _productValidator;
 
+    public ProductService(IProductRepository productRepository, ProductValidator productValidator)
+    {
+        _productRepository = productRepository;
+        _productValidator = productValidator;
+    }
 
     public async Task<ICollection<ProductDTO>> GetAllProducts()
     {
