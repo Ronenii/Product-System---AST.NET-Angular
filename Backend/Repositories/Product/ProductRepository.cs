@@ -14,6 +14,12 @@ public class ProductRepository: GenericRepository<Product>, IProductRepository
     {
     }
 
+    /*
+     * LINQ usage
+     * Returns a list of filtered products based on the given product filterDTO.
+     * Since all filters are optional, this goes over each filter and if it exists,
+     * adds the relevant query.
+     */
     public async Task<ICollection<Product>> GetFilteredProducts(ProductFilterDTO filterDto)
     {
         IQueryable<Product> query = _context.Products.AsQueryable();
