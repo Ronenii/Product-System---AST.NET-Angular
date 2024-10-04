@@ -9,9 +9,12 @@ using Backend.Services.Product.Validator;
 using Backend.Services.Token;
 using Backend.Services.User;
 using Backend.Services.User.Validator;
+using Backend.Swagger;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -36,6 +39,7 @@ builder.Services.AddScoped<TokenService>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 builder.Services.AddDbContext<DataContext>(
     options => { options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)); });
 
@@ -61,7 +65,12 @@ builder.Services.AddAuthentication(
                                                     };
         });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(
+    options =>
+        {
+            options.AddPolicy("AdminOnly", policy => policy.RequireRole("Admin"));
+            options.AddPolicy("AnyUser", policy => policy.RequireRole("Admin", "User"));
+        });
 
 var app = builder.Build();
 

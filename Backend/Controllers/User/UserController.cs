@@ -1,6 +1,7 @@
 ﻿using Backend.DTO.User;
 using Backend.DTO.User.Login;
 using Backend.Services.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,6 +19,7 @@ public class UserController: Controller
     }
 
     [HttpGet]
+    [Authorize(policy: "AnyUser")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<UserDTO>))]
     public async Task<IActionResult> GetAllUsers()
     {
@@ -26,6 +28,7 @@ public class UserController: Controller
     }
     
     [HttpGet("{id}")]
+    [Authorize(policy: "AnyUser")]
     [ProducesResponseType(200, Type = typeof(UserDTO))]
     [ProducesResponseType(404)]
     public async Task<IActionResult> GetUserById(int id)

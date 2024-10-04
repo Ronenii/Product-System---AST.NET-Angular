@@ -1,5 +1,6 @@
 ﻿using Backend.DTO.Category;
 using Backend.Services.Category;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers.Category;
@@ -16,6 +17,7 @@ public class CategoryController: Controller
     }
     
     [HttpGet]
+    [Authorize(policy: "AnyUser")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<CategoryDTO>))]
     public async Task<IActionResult> GetAllCategories()
     {
@@ -24,6 +26,7 @@ public class CategoryController: Controller
     }
     
     [HttpGet("{id}")]
+    [Authorize(policy: "AnyUser")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<CategoryDTO>))]
     [ProducesResponseType(404)]
     public async Task<IActionResult> GetCategoryById(int id)
@@ -37,6 +40,7 @@ public class CategoryController: Controller
     }
 
     [HttpPost]
+    [Authorize(policy: "AdminOnly")]
     [ProducesResponseType(201, Type = typeof(CategoryDTO))]
     [ProducesResponseType(400)]
     public async Task<IActionResult> AddCategory([FromBody] CreateCategoryDTO createCategoryDTO)

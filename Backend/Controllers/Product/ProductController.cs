@@ -2,6 +2,7 @@
 using Backend.DTO.Product;
 using Backend.Models.Filter;
 using Backend.Services.Product;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers.Product;
@@ -18,6 +19,7 @@ public class ProductController: Controller
     }
     
     [HttpGet]
+    [Authorize(policy: "AnyUser")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<ProductDTO>))]
     public async Task<IActionResult> GetAllProducts()
     {
@@ -26,6 +28,7 @@ public class ProductController: Controller
     }
     
     [HttpGet("{id}")]
+    [Authorize(policy: "AnyUser")]
     [ProducesResponseType(200, Type = typeof(ProductDTO))]
     [ProducesResponseType(404)]
     public async Task<IActionResult> GetProductById(int id)
@@ -39,6 +42,7 @@ public class ProductController: Controller
     }
 
     [HttpPost]
+    [Authorize(policy: "AdminOnly")]
     [ProducesResponseType(201, Type = typeof(ProductDTO))]
     [ProducesResponseType(400)]
     public async Task<IActionResult> AddProduct([FromBody] CreateProductDTO createProductDTO)
@@ -55,6 +59,7 @@ public class ProductController: Controller
     }
     
     [HttpPost("Filter")]
+    [Authorize(policy: "AnyUser")]
     [ProducesResponseType(200, Type = typeof(IEnumerable<ProductDTO>))]
     public async Task<IActionResult> GetFilteredProducts([FromBody] ProductFilterDTO productFilterDTO)
     {
