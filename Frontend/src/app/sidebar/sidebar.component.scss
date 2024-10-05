@@ -12,15 +12,19 @@
     li {
       margin-bottom: 10px;
       cursor: pointer;
+      padding: 10px;
+      &:hover {
+        background-color: #e2e6ea;
+        a {
+          color: #007bff;
+        }
+      }
 
       a {
         text-decoration: none;
         color: #000;
         font-size: 18px;
-
-        &:hover {
-          color: #007bff;
-        }
+        display: block;
       }
     }
   }
