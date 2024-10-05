@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { LinkButtonComponent } from '../../shared/link-button/link-button.component';
+import { LinkButtonComponent } from '../../shared/components/link-button/link-button.component';
 
 @Component({
   selector: 'app-login',

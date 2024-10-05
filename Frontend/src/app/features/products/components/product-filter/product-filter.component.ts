@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Category } from '../../../features/models/category/category.model';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Filter } from '../../../features/models/product/filter/filter.model';
+import { Category } from '../../../../shared/models/category/category.model';
+import { Filter } from '../../../../shared/models/product/filter/filter.model';
 
 @Component({
   selector: 'app-product-filter',

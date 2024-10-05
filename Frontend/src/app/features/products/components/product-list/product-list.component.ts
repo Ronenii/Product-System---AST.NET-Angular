@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from '../../../features/models/product/product.model';
-import { Category } from '../../../features/models/category/category.model';
 import { CommonModule } from '@angular/common';
 import { ProductFilterComponent } from '../product-filter/product-filter.component';
+import { Product } from '../../../../shared/models/product/product.model';
+import { Category } from '../../../../shared/models/category/category.model';
 
 @Component({
   selector: 'app-product-list',
@@ -16,7 +16,7 @@ export class ProductListComponent implements OnInit {
   categories: Category[] = [];
   categoryMap: { [key: number]: string } = {};
 
-  constructor(private productService: ProductService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.loadCategories();
