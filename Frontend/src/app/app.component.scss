@@ -1,9 +1,9 @@
 .app-layout {
-  display: flex;
+  display: flex; // Sidebar and main content side by side
+  min-height: 100vh; // Make sure the layout takes up the full viewport height
+}
 
-  .main-content {
-    flex: 1;
-    margin-left: 200px;
-    padding: 20px;
-  }
+.main-content {
+  flex: 1; // Take up the remaining space
+  padding: 20px;
 }

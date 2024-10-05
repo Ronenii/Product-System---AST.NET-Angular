@@ -1,14 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
+import { SidebarComponent } from './shared/sidebar/sidebar.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  imports: [RouterModule, SidebarComponent, CommonModule],
 })
 export class AppComponent {
-  title = 'Frontend';
+  title = 'Store';
+  constructor(public router: Router) {}
 }
