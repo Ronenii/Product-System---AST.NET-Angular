@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ProductFilterComponent } from '../product-filter/product-filter.component';
 import { Product } from '../../../../shared/models/product/product.model';
 import { Category } from '../../../../shared/models/category/category.model';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -16,7 +17,7 @@ export class ProductListComponent implements OnInit {
   categories: Category[] = [];
   categoryMap: { [key: number]: string } = {};
 
-  constructor() {}
+  constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
     this.loadCategories();
@@ -31,6 +32,18 @@ export class ProductListComponent implements OnInit {
 
   getCategoryName(categoryId: number): string {
     return this.categoryMap[categoryId];
+  }
+
+  loadCategories(): void {
+    this.productService.getCategories().subscribe((categories) => {
+      this.categories = categories;
+    });
+  }
+
+  loadFilteredProducts(filters: any): void {
+    this.productService.getFilteredProducts(filters).subscribe((products) => {
+      this.products = products;
+    });
   }
 
   onFilterChange(filters: any): void {
