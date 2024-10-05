@@ -1,0 +1,21 @@
+<div class="filter-container">
+  <h3>Filters</h3>
+
+  <label>Price Range</label>
+  <input type="number" [(ngModel)]="filter.minPrice" placeholder="Min Price" />
+  <input type="number" [(ngModel)]="filter.maxPrice" placeholder="Max Price" />
+
+  <label>Stock Range</label>
+  <input type="number" [(ngModel)]="filter.minStock" placeholder="Min Stock" />
+  <input type="number" [(ngModel)]="filter.maxStock" placeholder="Max Stock" />
+
+  <label>Category</label>
+  <select [(ngModel)]="filter.categoryId">
+    <option value="0">All Categories</option>
+    <option *ngFor="let category of categories" [value]="category.id">
+      {{ category.name }}
+    </option>
+  </select>
+
+  <button (click)="applyFilters()">Apply Filters</button>
+</div>

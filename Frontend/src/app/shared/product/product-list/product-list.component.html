@@ -1,0 +1,14 @@
+<div class="filter-section">
+  <app-product-filter
+    (filterChange)="onFilterChange($event)"
+    [categories]="categories"
+  ></app-product-filter>
+</div>
+
+<div class="product-list" *ngFor="let product of products">
+  <h3>{{ product.name }}</h3>
+  <p>Description: {{ product.description }}</p>
+  <p>Price: ${{ product.price }}</p>
+  <p>Stock: {{ product.stock }}</p>
+  <p>Category: {{ getCategoryName(product.categoryId) }}</p>
+</div>
