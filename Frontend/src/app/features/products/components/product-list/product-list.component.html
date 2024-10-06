@@ -1,14 +1,16 @@
-<div class="filter-section">
-  <app-product-filter
-    (filterChange)="onFilterChange($event)"
-    [categories]="categories"
-  ></app-product-filter>
-</div>
+<div class="page-container">
+  <div class="filter-section">
+    <app-product-filter
+      (filterChange)="onFilterChange($event)"
+      [categories]="categories"
+    ></app-product-filter>
+  </div>
 
-<div class="product-list" *ngFor="let product of products">
-  <h3>{{ product.name }}</h3>
-  <p>Description: {{ product.description }}</p>
-  <p>Price: ${{ product.price }}</p>
-  <p>Stock: {{ product.stock }}</p>
-  <p>Category: {{ getCategoryName(product.categoryId) }}</p>
+  <div class="product-list" *ngFor="let product of products">
+    <h3>{{ product.name }}</h3>
+    <p><label>Description:</label> {{ product.description }}</p>
+    <p><label>Price:</label> ₪{{ product.price }}</p>
+    <p><label>Stock:</label> {{ product.stock }}</p>
+    <p><label>Category:</label> {{ getCategoryName(product.categoryId) }}</p>
+  </div>
 </div>

@@ -38,6 +38,7 @@ export class ProductListComponent implements OnInit {
     this.productService.getCategories().subscribe((categories) => {
       this.categories = categories;
     });
+    this.mapCategories();
   }
 
   loadFilteredProducts(filters: any): void {

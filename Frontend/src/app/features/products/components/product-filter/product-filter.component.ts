@@ -7,7 +7,7 @@ import { Filter } from '../../../../shared/models/product/filter/filter.model';
 @Component({
   selector: 'app-product-filter',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './product-filter.component.html',
   styleUrl: './product-filter.component.scss',
 })
