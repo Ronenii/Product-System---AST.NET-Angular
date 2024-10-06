@@ -44,7 +44,7 @@ public class ProductRepository: GenericRepository<Product>, IProductRepository
             query = query.Where(p => p.Price <= filterDto.MaxPrice.Value);
         }
 
-        if (filterDto.CategoryId.HasValue)
+        if (filterDto.CategoryId.HasValue && filterDto.CategoryId.Value != 0)
         {
             query = query.Where(p => p.Category.Id == filterDto.CategoryId);
         }

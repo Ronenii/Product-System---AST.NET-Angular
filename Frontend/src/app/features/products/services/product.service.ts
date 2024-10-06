@@ -4,6 +4,7 @@ import { Product } from '../../../shared/models/product/product.model';
 import { Category } from '../../../shared/models/category/category.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
+import { Filter } from '../../../shared/models/product/filter/filter.model';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +30,7 @@ export class ProductService {
     return this.http.get<Category[]>(this.categoriesUrl);
   }
 
-  getFilteredProducts(filters: any): Observable<Product[]> {
+  getFilteredProducts(filters: Filter): Observable<Product[]> {
     // const dummyProducts: Product[] = [
     //   {
     //     id: 1,

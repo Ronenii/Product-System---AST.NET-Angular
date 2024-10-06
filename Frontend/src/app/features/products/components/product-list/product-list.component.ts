@@ -4,6 +4,7 @@ import { ProductFilterComponent } from '../product-filter/product-filter.compone
 import { Product } from '../../../../shared/models/product/product.model';
 import { Category } from '../../../../shared/models/category/category.model';
 import { ProductService } from '../../services/product.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -20,8 +21,18 @@ export class ProductListComponent implements OnInit {
   constructor(private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.loadCategories();
-    this.loadFilteredProducts({});
+    this.loadCategoriesAndProducts();
+  }
+
+  loadCategoriesAndProducts(): void {
+    forkJoin({
+      categories: this.productService.getCategories(),
+      products: this.productService.getFilteredProducts({}),
+    }).subscribe(({ categories, products }) => {
+      this.categories = categories;
+      this.mapCategories();
+      this.products = products;
+    });
   }
 
   mapCategories(): void {

@@ -30,7 +30,7 @@
   <div class="filter-item">
     <label>Category</label>
     <select [(ngModel)]="filter.categoryId">
-      <option value="null"></option>
+      <option value="0">All</option>
       <option *ngFor="let category of categories" [value]="category.id">
         {{ category.name }}
       </option>
