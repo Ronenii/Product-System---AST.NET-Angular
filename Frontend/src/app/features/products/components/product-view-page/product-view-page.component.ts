@@ -5,15 +5,16 @@ import { Product } from '../../../../shared/models/product/product.model';
 import { Category } from '../../../../shared/models/category/category.model';
 import { ProductService } from '../../services/product.service';
 import { forkJoin } from 'rxjs';
+import { ProductCardComponent } from '../../../../shared/components/products/product-card/product-card.component';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, ProductFilterComponent],
-  templateUrl: './product-list.component.html',
-  styleUrl: './product-list.component.scss',
+  imports: [CommonModule, ProductFilterComponent, ProductCardComponent],
+  templateUrl: './product-view-page.component.html',
+  styleUrl: './product-view-page.component.scss',
 })
-export class ProductListComponent implements OnInit {
+export class ProductViewPageComponent implements OnInit {
   products: Product[] = [];
   categories: Category[] = [];
   categoryMap: { [key: number]: string } = {};

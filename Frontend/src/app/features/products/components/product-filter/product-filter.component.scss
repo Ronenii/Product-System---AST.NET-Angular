@@ -42,16 +42,16 @@
       padding-right: 2rem;
       font-size: 16px;
       box-sizing: border-box;
-      white-space: nowrap; // Prevents the text from wrapping inside the select element
+      white-space: nowrap;
       overflow: hidden;
       padding: 8px;
     }
   }
 
   .filter-button-container {
-    flex: 1 100%; // Make the button take up the full width of the container
+    flex: 1 100%;
     display: flex;
-    justify-content: center; // Center the button horizontally
+    justify-content: center;
     margin-top: 10px;
 
     button {

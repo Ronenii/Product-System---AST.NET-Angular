@@ -1,0 +1,18 @@
+<div class="page-container">
+  <div class="filter-section">
+    <app-product-filter
+      (filterChange)="onFilterChange($event)"
+      [categories]="categories"
+    ></app-product-filter>
+  </div>
+
+  <div class="product-list" *ngFor="let product of products">
+    <app-product-card
+      [name]="product.name"
+      [description]="product.description"
+      [price]="product.price"
+      [stock]="product.stock"
+      [category]="getCategoryName(product.categoryId)"
+    />
+  </div>
+</div>
