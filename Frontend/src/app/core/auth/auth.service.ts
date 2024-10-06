@@ -1,22 +1,40 @@
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  constructor(private cookieService: CookieService) {}
 
-  getDecodedToken(token: string): any {
+  saveToken(token: string): void {
+    this.cookieService.set('authToken', token, {
+      expires: 1,
+      secure: true,
+      sameSite: 'Lax',
+    });
+  }
+
+  getToken(): string | null {
+    return this.cookieService.get('authToken');
+  }
+
+  clearToken(): void {
+    this.cookieService.delete('authToken');
+  }
+
+  getDecodedToken(): any {
     try {
-      return jwtDecode(token);
+      const token = this.getToken();
+      return token ? jwtDecode(token) : null; // Corrected decoding logic
     } catch (Error) {
       return null;
     }
   }
 
-  getUsernameFromToken(token: string): string {
-    const decodedToken = this.getDecodedToken(token);
+  getUsernameFromToken(): string | null {
+    const decodedToken = this.getDecodedToken();
     return decodedToken
       ? decodedToken[
           'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'
@@ -24,8 +42,8 @@ export class AuthService {
       : null;
   }
 
-  getRoleFromToken(token: string): string {
-    const decodedToken = this.getDecodedToken(token);
+  getRoleFromToken(): string | null {
+    const decodedToken = this.getDecodedToken();
     return decodedToken
       ? decodedToken[
           'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'
