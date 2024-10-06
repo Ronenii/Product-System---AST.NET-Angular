@@ -15,7 +15,7 @@ export class ProductCardComponent {
   @Input() price: number = 0;
   @Input() stock: number = 0;
   @Input() category: string = '';
-  @Input() deletable: boolean = false;
+  @Input() isDeletable: boolean = false;
   isAdmin: boolean = false;
 
   @Output() deleteProduct = new EventEmitter<number>();

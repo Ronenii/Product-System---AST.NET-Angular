@@ -4,5 +4,7 @@
   <p><label>Price:</label> ₪{{ price }}</p>
   <p><label>Stock:</label> {{ stock }}</p>
   <p><label>Category:</label> {{ category }}</p>
-  <button *ngIf="getIsAdmin() && deletable" (click)="onDelete()">Delete</button>
+  <button *ngIf="getIsAdmin() && isDeletable" (click)="onDelete()">
+    Delete
+  </button>
 </div>

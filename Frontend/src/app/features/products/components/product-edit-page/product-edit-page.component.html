@@ -1,1 +1,8 @@
-<p>product-edit works!</p>
+<div class="page-container">
+  <app-product-list
+    [products]="products"
+    [categoryMap]="categoryMap"
+    [isDeletable]="true"
+    (deleteProduct)="onDeleteProduct($event)"
+  ></app-product-list>
+</div>

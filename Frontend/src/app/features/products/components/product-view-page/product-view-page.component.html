@@ -6,13 +6,9 @@
     ></app-product-filter>
   </div>
 
-  <div class="product-list" *ngFor="let product of products">
-    <app-product-card
-      [name]="product.name"
-      [description]="product.description"
-      [price]="product.price"
-      [stock]="product.stock"
-      [category]="getCategoryName(product.categoryId)"
-    />
-  </div>
+  <app-product-list
+    [products]="products"
+    [categoryMap]="categoryMap"
+    [isDeletable]="false"
+  ></app-product-list>
 </div>

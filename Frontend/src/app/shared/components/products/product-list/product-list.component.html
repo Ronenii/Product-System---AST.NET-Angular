@@ -1,0 +1,11 @@
+<div class="product-list" *ngFor="let product of products">
+  <app-product-card
+    [name]="product.name"
+    [description]="product.description"
+    [price]="product.price"
+    [stock]="product.stock"
+    [category]="getCategoryName(product.category)"
+    [isDeletable]="isDeletable"
+    (deleteProduct)="onDelete(product.id)"
+  ></app-product-card>
+</div>

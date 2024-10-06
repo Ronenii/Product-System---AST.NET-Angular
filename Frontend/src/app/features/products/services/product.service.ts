@@ -62,4 +62,8 @@ export class ProductService {
 
     return this.http.post<Product[]>(this.productsUrl + '/Filter', filters);
   }
+
+  getAllProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.productsUrl);
+  }
 }

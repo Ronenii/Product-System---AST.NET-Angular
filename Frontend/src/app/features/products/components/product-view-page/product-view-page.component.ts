@@ -6,11 +6,17 @@ import { Category } from '../../../../shared/models/category/category.model';
 import { ProductService } from '../../services/product.service';
 import { forkJoin } from 'rxjs';
 import { ProductCardComponent } from '../../../../shared/components/products/product-card/product-card.component';
+import { ProductListComponent } from '../../../../shared/components/products/product-list/product-list.component';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, ProductFilterComponent, ProductCardComponent],
+  imports: [
+    CommonModule,
+    ProductFilterComponent,
+    ProductCardComponent,
+    ProductListComponent,
+  ],
   templateUrl: './product-view-page.component.html',
   styleUrl: './product-view-page.component.scss',
 })
