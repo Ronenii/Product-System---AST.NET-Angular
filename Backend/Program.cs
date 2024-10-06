@@ -23,6 +23,17 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddControllers();
 
+builder.Services.AddCors(options =>
+    {
+        options.AddPolicy("AllowAngularClient",
+            builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+    });
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<UserValidator>();
 builder.Services.AddScoped<UserService>();
@@ -79,9 +90,12 @@ if(app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAngularClient");
 
 app.UseAuthentication();
 app.UseAuthorization();
