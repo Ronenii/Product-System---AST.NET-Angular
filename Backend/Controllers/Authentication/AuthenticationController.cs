@@ -2,6 +2,7 @@ using Backend.DTO.User;
 using Backend.DTO.User.Login;
 using Backend.Services.Token;
 using Backend.Services.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,7 @@ public class AuthenticationController: Controller
     }
     
     [HttpPost("Login")]
+    [AllowAnonymous]
     [ProducesResponseType(200, Type = typeof(string))]
     [ProducesResponseType(401)]
     public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
@@ -38,6 +40,7 @@ public class AuthenticationController: Controller
     }
 
     [HttpPost("Register")]
+    [AllowAnonymous]
     [ProducesResponseType(201, Type = typeof(string))]
     [ProducesResponseType(401)]
     public async Task<IActionResult> Register([FromBody] CreateUserDTO createUserDTO)
