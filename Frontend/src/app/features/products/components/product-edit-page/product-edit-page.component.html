@@ -1,8 +1,10 @@
 <div class="page-container">
-  <app-product-list
-    [products]="products"
-    [categoryMap]="categoryMap"
-    [isDeletable]="true"
-    (deleteProduct)="onDeleteProduct($event)"
-  ></app-product-list>
+  <div class="products-section">
+    <app-product-list
+      [products]="products"
+      [categoryMap]="categoryMap"
+      [isDeletable]="true"
+      (deleteProduct)="onDeleteProduct($event)"
+    ></app-product-list>
+  </div>
 </div>

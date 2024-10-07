@@ -4,7 +4,7 @@
     [description]="product.description"
     [price]="product.price"
     [stock]="product.stock"
-    [category]="getCategoryName(product.category)"
+    [category]="getCategoryName(product.categoryId)"
     [isDeletable]="isDeletable"
     (deleteProduct)="onDelete(product.id)"
   ></app-product-card>

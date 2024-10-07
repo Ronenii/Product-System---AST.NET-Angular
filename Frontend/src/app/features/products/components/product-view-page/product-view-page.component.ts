@@ -9,7 +9,7 @@ import { ProductCardComponent } from '../../../../shared/components/products/pro
 import { ProductListComponent } from '../../../../shared/components/products/product-list/product-list.component';
 
 @Component({
-  selector: 'app-product-list',
+  selector: 'app-product-view-page',
   standalone: true,
   imports: [
     CommonModule,
