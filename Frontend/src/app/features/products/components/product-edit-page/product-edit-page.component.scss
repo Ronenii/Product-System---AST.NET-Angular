@@ -1,7 +1,6 @@
 .page-container {
   display: flex;
   flex-direction: column;
-  gap: 10px;
   justify-content: flex-start;
 
   .controls-section {
@@ -17,5 +16,9 @@
     button {
       margin-right: 10px;
     }
+  }
+
+  .displayed-form {
+    width: 100%;
   }
 }
