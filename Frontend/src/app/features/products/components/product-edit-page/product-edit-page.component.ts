@@ -8,6 +8,7 @@ import { Category } from '../../../../shared/models/category/category.model';
 import { CommonModule } from '@angular/common';
 import { ProductAddComponent } from '../product-add/product-add.component';
 import { CategoryAddComponent } from '../category-add/category-add.component';
+import { AuthService } from '../../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-product-edit',
@@ -29,7 +30,10 @@ export class ProductEditComponent {
   isAddProductsVisible: boolean = false;
   isAddCategoryVisible: boolean = false;
 
-  constructor(private productService: ProductService) {}
+  constructor(
+    private productService: ProductService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.loadCategoriesAndProducts();

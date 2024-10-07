@@ -2,11 +2,13 @@
   <div class="filter-item">
     <label>Price Range</label>
     <input
+      class="app-input"
       type="number"
       [(ngModel)]="filter.minPrice"
       placeholder="Min Price"
     />
     <input
+      class="app-input"
       type="number"
       [(ngModel)]="filter.maxPrice"
       placeholder="Max Price"
@@ -16,11 +18,13 @@
   <div class="filter-item">
     <label>Stock Range</label>
     <input
+      class="app-input"
       type="number"
       [(ngModel)]="filter.minStock"
       placeholder="Min Stock"
     />
     <input
+      class="app-input"
       type="number"
       [(ngModel)]="filter.maxStock"
       placeholder="Max Stock"
@@ -29,7 +33,7 @@
 
   <div class="filter-item">
     <label>Category</label>
-    <select [(ngModel)]="filter.categoryId">
+    <select class="app-input" [(ngModel)]="filter.categoryId">
       <option value="0">All</option>
       <option *ngFor="let category of categories" [value]="category.id">
         {{ category.name }}
@@ -38,6 +42,6 @@
   </div>
 
   <div class="filter-button-container">
-    <button (click)="applyFilters()">Apply Filters</button>
+    <button class="app-button" (click)="applyFilters()">Apply Filters</button>
   </div>
 </div>
