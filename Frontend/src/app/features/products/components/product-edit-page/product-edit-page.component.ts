@@ -75,10 +75,10 @@ export class ProductEditComponent {
   }
 
   onDeleteProduct(productId: number) {
-    // this.productService.deleteProduct(productId).subscribe(() => {
-    //   this.products = this.products.filter(
-    //     (product) => product.id !== productId
-    //   );
-    // });
+    this.productService.deleteProduct(productId).subscribe(() => {
+      this.products = this.products.filter(
+        (product) => product.id !== productId
+      );
+    });
   }
 }

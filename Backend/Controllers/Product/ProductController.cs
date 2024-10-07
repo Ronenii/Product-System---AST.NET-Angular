@@ -67,4 +67,15 @@ public class ProductController: Controller
 
         return Ok(product);
     }
+
+    [HttpDelete("{id}")]
+    [Authorize(policy: "AdminOnly")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
+    public async Task<IActionResult> DeleteProduct(int id)
+    {
+        int deleted = await _productService.DeleteProduct(id);
+        return Ok(new { message = $"Product with id {deleted} was deleted." });
+    }
+    
 }

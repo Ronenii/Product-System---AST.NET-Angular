@@ -6,6 +6,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ProductService } from '../../services/product.service';
+import { createCategoryBody } from '../../../../shared/models/request-body/create-category.mode';
 
 @Component({
   selector: 'app-category-add',
@@ -17,7 +19,10 @@ import {
 export class CategoryAddComponent {
   categoryForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private productService: ProductService
+  ) {
     this.categoryForm = this.formBuilder.group({
       name: ['', [Validators.required]],
     });
@@ -25,6 +30,16 @@ export class CategoryAddComponent {
 
   onSubmit() {
     if (this.categoryForm.valid) {
+      const category: createCategoryBody = this.categoryForm.value;
+      this.productService.createCategory(category).subscribe(
+        (response) => {
+          console.log('Category created successfully:', response);
+          this.categoryForm.reset();
+        },
+        (error) => {
+          console.error('Error creating category:', error);
+        }
+      );
     } else {
       this.categoryForm.markAllAsTouched();
     }

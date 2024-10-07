@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Category } from '../../../../shared/models/category/category.model';
 import {
   FormBuilder,
@@ -7,6 +7,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ProductService } from '../../services/product.service';
+import { CreateProductBody } from '../../../../shared/models/request-body/create-product.model';
 
 @Component({
   selector: 'app-product-add',
@@ -17,9 +19,12 @@ import { CommonModule } from '@angular/common';
 })
 export class ProductAddComponent {
   productForm: FormGroup;
-  categories: Category[] = [];
+  @Input() categories: Category[] = [];
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private productService: ProductService
+  ) {
     this.productForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       description: [''],
@@ -28,13 +33,22 @@ export class ProductAddComponent {
         [Validators.required, Validators.pattern(/^[0-9]+(\.[0-9]{1,2})?$/)],
       ],
       stock: ['', [Validators.required, Validators.pattern(/^[0-9]/)]],
-      category: ['', Validators.required],
+      categoryId: ['', Validators.required],
     });
   }
 
   onSubmit() {
     if (this.productForm.valid) {
-      // TODO: Product service call
+      const product: CreateProductBody = this.productForm.value;
+      this.productService.createProduct(product).subscribe(
+        (response) => {
+          console.log('Product created successfully:', response);
+          this.productForm.reset();
+        },
+        (error) => {
+          console.error('Error creating product:', error);
+        }
+      );
     } else {
       this.productForm.markAllAsTouched();
     }

@@ -21,7 +21,7 @@
     </div>
 
     <div *ngIf="isAddProductsVisible">
-      <app-product-add></app-product-add>
+      <app-product-add [categories]="categories"></app-product-add>
     </div>
 
     <div *ngIf="isAddCategoryVisible">
