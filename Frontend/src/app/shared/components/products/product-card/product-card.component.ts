@@ -28,8 +28,6 @@ export class ProductCardComponent {
 
   getIsAdmin() {
     this.isAdmin = this.authService.getRoleFromToken() == 'Admin';
-    console.log(this.isAdmin);
-    console.log(this.authService.getRoleFromToken());
     return this.isAdmin;
   }
 }

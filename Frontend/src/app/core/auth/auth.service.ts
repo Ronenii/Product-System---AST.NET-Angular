@@ -16,6 +16,10 @@ export class AuthService {
   private authUrl = this.apiUrl + '/Authentication';
   constructor(private cookieService: CookieService) {}
 
+  isAuthenticated(): boolean {
+    return !!this.cookieService.get('authToken');
+  }
+
   saveToken(token: string): void {
     this.cookieService.set('authToken', token, {
       expires: 1,
