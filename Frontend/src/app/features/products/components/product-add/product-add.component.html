@@ -1,0 +1,76 @@
+<div class="page-container">
+  <h3>Create Product</h3>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <input
+        id="name"
+        formControlName="name"
+        type="text"
+        placeholder="Product name"
+      />
+      <div *ngIf="getForm['name'].touched && getForm['name'].valid">
+        <small *ngIf="getForm['name'].errors?.['required']"
+          >Name is required</small
+        >
+        <small *ngIf="getForm['name'].errors?.['minLength']"
+          >Name must be at least 2 characters long</small
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <textarea
+        id="description"
+        formControlName="description"
+        placeholder="Product description"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <input
+        id="price"
+        formControlName="price"
+        type="text"
+        placeholder="Product price"
+      />
+      <div *ngIf="getForm['price'].touched && getForm['price'].valid">
+        <small *ngIf="getForm['price'].errors?.['required']"
+          >Price is required</small
+        >
+        <small *ngIf="getForm['price'].errors?.['pattern']"
+          >Please enter a valid price</small
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        id="stock"
+        formControlName="stock"
+        type="text"
+        placeholder="Stock count"
+      />
+      <div *ngIf="getForm['stock'].touched && getForm['stock'].valid">
+        <small *ngIf="getForm['stock'].errors?.['required']"
+          >stock can only be a whole number</small
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <select id="category" formControlName="category">
+        <option value="0">All</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+      <div *ngIf="getForm['category'].touched && getForm['category'].valid">
+        <small *ngIf="getForm['category'].errors?.['required']"
+          >Category is required.</small
+        >
+      </div>
+    </div>
+
+    <button type="submit" [disabled]="productForm.invalid">Submit</button>
+  </form>
+</div>

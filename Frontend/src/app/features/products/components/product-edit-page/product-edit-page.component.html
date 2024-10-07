@@ -1,10 +1,23 @@
 <div class="page-container">
-  <div class="products-section">
+  <div class="controls-section">
+    <button (click)="displayDeleteProductsList()">Delete Products</button>
+    <button (click)="displayAddProductsForm()">Add Products</button>
+    <button (click)="displayAddCategoriesForm()">Add Category</button>
+  </div>
+  <div *ngIf="isDeleteProductsVisible" class="products-list">
     <app-product-list
       [products]="products"
       [categoryMap]="categoryMap"
       [isDeletable]="true"
       (deleteProduct)="onDeleteProduct($event)"
     ></app-product-list>
+  </div>
+
+  <div *ngIf="isAddProductsVisible">
+    <app-product-add></app-product-add>
+  </div>
+
+  <div *ngIf="isAddCategoryVisible">
+    <app-category-add></app-category-add>
   </div>
 </div>
