@@ -81,4 +81,8 @@ export class ProductEditComponent {
       );
     });
   }
+
+  isAdmin(): boolean | null {
+    return this.authService.isAdmin();
+  }
 }

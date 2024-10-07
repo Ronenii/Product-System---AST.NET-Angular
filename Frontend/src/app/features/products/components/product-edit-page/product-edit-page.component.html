@@ -1,4 +1,4 @@
-<div class="page-container">
+<div *ngIf="isAdmin()" class="page-container">
   <div class="controls-section">
     <button class="app-button" (click)="displayDeleteProductsList()">
       Delete Products
@@ -29,3 +29,5 @@
     </div>
   </div>
 </div>
+
+<div *ngIf="!isAdmin()"><h3>No permission for this page</h3></div>
