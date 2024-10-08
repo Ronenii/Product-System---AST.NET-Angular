@@ -56,7 +56,6 @@ export class AuthService {
 
   getRoleFromToken(): string | null {
     const decodedToken = this.getDecodedToken();
-    console.log(decodedToken);
     return decodedToken
       ? decodedToken[
           'http://schemas.microsoft.com/ws/2008/06/identity/claims/role'

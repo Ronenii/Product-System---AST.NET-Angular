@@ -10,6 +10,7 @@ import { AuthService } from '../../../../core/auth/auth.service';
   styleUrl: './product-card.component.scss',
 })
 export class ProductCardComponent {
+  @Input() productId: number = 0;
   @Input() name: string = '';
   @Input() description: string = '';
   @Input() price: number = 0;
@@ -23,7 +24,7 @@ export class ProductCardComponent {
   constructor(private authService: AuthService) {}
 
   onDelete() {
-    this.deleteProduct.emit();
+    this.deleteProduct.emit(this.productId); // Pass the productId when emitting
   }
 
   getIsAdmin() {

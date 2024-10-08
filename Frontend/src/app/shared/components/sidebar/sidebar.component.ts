@@ -16,4 +16,8 @@ export class SidebarComponent {
     this.authService.clearToken();
     this.router.navigate(['/login']);
   }
+
+  getUsername(): string | null {
+    return this.authService.getUsernameFromToken();
+  }
 }
