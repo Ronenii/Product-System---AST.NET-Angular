@@ -1,20 +1,18 @@
-﻿FROM bitnami/aspnet-core:8 AS base
-WORKDIR /app
-EXPOSE 5145
+﻿# Use the Bitnami ASP.NET Core SDK image as the base (or replace with mcr.microsoft.com/dotnet/sdk:8.0 if preferred)
+FROM mcr.microsoft.com/dotnet/sdk:8.0
 
-# Use the SDK image for building the application
-FROM bitnami/aspnet-core:8 AS build
-WORKDIR /src
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy everything from the current directory to the /app directory in the container
 COPY . .
 
-# Restore dependencies
+# Expose port 5145 for the application
+EXPOSE 5145
+
+# Restore dependencies, build, and publish the application
 RUN dotnet restore
+RUN dotnet publish -c Release -o /app
 
-# Build and publish the application
-RUN dotnet publish -c Release -o /app/publish
-
-# Copy build output to runtime image
-FROM base AS final
-WORKDIR /app
-COPY --from=build /app/publish .
-ENTRYPOINT ["dotnet", "Backend.dll"]
+# Set the entrypoint to run the application on start
+ENTRYPOINT ["dotnet", "/app/Backend.dll"]
