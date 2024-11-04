@@ -66,6 +66,7 @@ Desktop.ini
 # Dotnet publish
 publish/
 publishOutput/
+/publish
 
 # Entity Framework
 *.mdf
