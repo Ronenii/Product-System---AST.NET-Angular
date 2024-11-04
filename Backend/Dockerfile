@@ -1,9 +1,9 @@
-﻿FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+﻿FROM bitnami/aspnet-core:8 AS base
 WORKDIR /app
-EXPOSE 80
+EXPOSE 5145
 
 # Use the SDK image for building the application
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM bitnami/aspnet-core:8 AS build
 WORKDIR /src
 COPY . .
 
